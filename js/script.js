@@ -6,6 +6,7 @@ let gameOver = true;
 
 
 bnt_start.addEventListener('click', function() {
+    startGame();
     displayMenu.style.display = "none";
     gameOver = false;
 });
@@ -19,6 +20,7 @@ const jump = () => {
 };
 
 const loopGame = setInterval (() => {
+    console.log('teste');
 
     if (gameOver === false) {
         const pipePosition = pipe.offsetLeft;
@@ -36,9 +38,18 @@ const loopGame = setInterval (() => {
     }
 }, 10);
 
+function startGame () {
+    pipe.removeAttribute("style");
+    pipe.classList.add("pipe-animation");
+
+    mario.removeAttribute("style");
+    mario.src = "./assets/sprites/super-mario.gif";
+}
+
 function gameOverFunc (pipePos, marioPos) {
     pipe.style.animation = "none";
     pipe.style.left = `${pipePos}px`;
+    pipe.classList.remove("pipe-animation");
 
     mario.style.animation = "none";
     mario.style.bottom = `${marioPos}px`;
@@ -49,7 +60,7 @@ function gameOverFunc (pipePos, marioPos) {
     
     displayMenu.style.display = "flex";
     gameOver = true;
-    clearInterval(loopGame);
+    //clearInterval(loopGame);
 }
 
 document.addEventListener("keydown", jump);
